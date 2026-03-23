@@ -203,17 +203,10 @@ body::before {
     padding-left: 16px;
     padding-right: 16px;
   }
-  body {
-    text-align: center;
-  }
   section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .section-label {
-    justify-content: center;
+    align-items: flex-start;
   }
   /* Ensure grids stack and center */
   .services-grid {
@@ -258,9 +251,7 @@ body::before {
   }
   
 
-  body, section {
-    text-align: center;
-  }
+
   
   /* Hero section stays left-aligned */
   #hero, #hero * {
@@ -269,9 +260,7 @@ body::before {
   #hero .hero-buttons { justify-content: flex-start; }
   #hero .hero-stats   { justify-content: flex-start; }
   
-  .section-label {
-    justify-content: center;
-  }
+
 }
 
 /* ── Mobile (≤ 768px) ────────────────────────────────── */
@@ -298,7 +287,7 @@ body::before {
     justify-content: space-between;
   }
 
-  .hero-headline { font-size: clamp(28px, 8vw, 48px); text-align: left; }
+  .hero-headline { font-size: clamp(28px, 8vw, 54px); text-align: left; }
   .hero-sub { max-width: 100%; text-align: left; }
   .hero-buttons { justify-content: flex-start; }
   .hero-stats { justify-content: flex-start; gap: 24px; }
@@ -319,8 +308,8 @@ body::before {
     font-size: 12px;
   }
   
-  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-  .footer-socials { justify-content: center; }
+  .footer-inner { flex-direction: column; gap: 24px; text-align: left; }
+  .footer-socials { justify-content: flex-start; }
 }
 
 /* ── Desktop (≥ 1025px) ─────────────────────────────── */
@@ -340,7 +329,7 @@ body::before {
 @media (max-width: 540px) {
   :root { --space-xl: 60px; }
   .hero-badge { font-size: 9px; padding: 7px 14px; }
-  .process-item { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+  .process-item { grid-template-columns: 1fr; text-align: left; gap: 8px; }
   .process-step { margin-bottom: 4px; }
   .process-desc { display: none; }
   
@@ -385,7 +374,7 @@ section {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(26px, 4vw, 52px);
+  font-size: clamp(28px, 4.5vw, 54px);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -407,7 +396,7 @@ section {
   padding: 13px 26px;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-decoration: none;
@@ -511,7 +500,7 @@ nav {
 
 .nav-links a {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -587,7 +576,10 @@ nav {
   width: 75%;
   max-width: 320px;
   height: 100vh;
-  background: #0B0F19;
+  background: rgba(5, 5, 8, 0.70);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid var(--border);
   z-index: 1001;
   display: flex;
   flex-direction: column;
@@ -595,6 +587,7 @@ nav {
   transform: translateX(100%);
   transition: transform 0.3s ease;
   box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  text-align: left;
 }
 
 .mobile-menu.open {
@@ -613,10 +606,12 @@ nav {
 }
 
 .mobile-menu-links a {
-  font-family: var(--font-display);
-  font-size: 18px;
+  font-family: var(--font-mono);
+  font-size: 16px;
   font-weight: 500;
-  color: #FFFFFF;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
@@ -631,7 +626,7 @@ nav {
 
 .mobile-menu.open .mobile-menu-links a:hover {
   transform: translateX(8px);
-  color: var(--accent);
+  color: var(--text);
   transition-delay: 0s;
 }
 
@@ -726,7 +721,7 @@ nav {
 /* Sub-text */
 .hero-sub {
   max-width: 520px;
-  font-size: clamp(12px, 1.2vw, 14px);
+  font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.75;
   color: var(--text-dim);
   margin-bottom: clamp(28px, 4vw, 44px);
@@ -759,7 +754,7 @@ nav {
 
 .stat-num {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: clamp(20px, 2.5vw, 30px);
   font-weight: 700;
   line-height: 1;
   color: var(--text);
@@ -877,14 +872,14 @@ nav {
 
 .service-name {
   font-family: var(--font-display);
-  font-size: clamp(15px, 1.8vw, 18px);
+  font-size: clamp(16px, 1.8vw, 22px);
   font-weight: 700;
   color: var(--text);
   margin-bottom: 12px;
 }
 
 .service-desc {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.72;
   color: var(--text-dim);
   margin-bottom: 26px;
@@ -946,7 +941,7 @@ nav {
 
 .process-name {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 700;
   color: var(--text);
   transition: color var(--ease-fast);
@@ -955,7 +950,7 @@ nav {
 .process-item:hover .process-name { color: var(--accent); }
 
 .process-desc {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.72;
   color: var(--text-dim);
   text-align: right;
@@ -1052,14 +1047,14 @@ nav {
 .work-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(15px, 1.8vw, 18px);
+  font-size: clamp(16px, 1.8vw, 22px);
   margin-bottom: 6px;
 }
 
 .work-card.large .work-title { font-size: clamp(18px, 2.2vw, 24px); }
 
 .work-desc {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--text-dim);
   line-height: 1.65;
   margin-bottom: 14px;
@@ -1125,14 +1120,18 @@ nav {
 
 .cta-headline {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4.5vw, 56px);
+  font-size: clamp(32px, 5vw, 54px);
   font-weight: 800;
   line-height: 1.02;
   margin-bottom: 18px;
 }
 
+.cta-card .section-label {
+  justify-content: center;
+}
+
 .cta-sub {
-  font-size: clamp(12px, 1.2vw, 14px);
+  font-size: clamp(14px, 1.5vw, 18px);
   color: var(--text-dim);
   max-width: 440px;
   margin: 0 auto 40px;
@@ -1145,6 +1144,30 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 16px;
+}
+
+.cta-card .btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.cta-card .btn-primary:hover {
+  background: #fff;
+  color: var(--bg);
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.cta-card .btn-ghost {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.cta-card .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ================================================================
