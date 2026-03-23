@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: "Tour Agency / Safari",
       desc: "Private and Custom Safaris Landing — built in 6 weeks.",
       link: "https://safariwithus.vercel.app/",
-      size: "large"
+      size: "small"
     },
     {
       title: "Wild Photography",
@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
       size: "small"
     },
     {
-      title: "Forma Store",
-      category: "E-Commerce",
-      desc: "Headless Shopify storefront for modern lifestyle.",
-      link: "https://github.com/zikka/void-studio", // Placeholder link
+      title: "Properties",
+      category: "Real Estate",
+      desc: "Real Estate & consultancy Landing.",
+      link: "https://urbanprime-six.vercel.app/", // Placeholder link
       size: "small"
     }
   ];
