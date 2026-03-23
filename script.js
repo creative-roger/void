@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Properties",
       category: "Real Estate",
       desc: "Real Estate & consultancy Landing.",
-      link: "https://urbanprime-six.vercel.app/", // Placeholder link
+      link: "https://urbanprime-six.vercel.app/",
       size: "small"
     }
   ];
@@ -101,19 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
     };
 
-    // We'll group them: one large, then a column of others if they are small
     let html = '';
-    let smallCardsHtml = '';
 
     PROJECTS.forEach((proj, idx) => {
-      const isLarge = proj.size === 'large';
       const delayClass = `work-card--d${idx % 3}`;
       const imgUrl = getScreenshotUrl(proj.link);
 
-      const cardHtml = `
-        <a class="work-card ${proj.size} reveal ${delayClass}" 
-           href="${proj.link}" 
-           target="_blank" 
+      html += `
+        <a class="work-card reveal ${delayClass}"
+           href="${proj.link}"
+           target="_blank"
            rel="noopener noreferrer"
            aria-label="View ${proj.title} case study">
           <div class="work-thumb">
@@ -128,18 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </a>
       `;
-
-      if (isLarge) {
-        html += cardHtml;
-      } else {
-        smallCardsHtml += cardHtml;
-      }
     });
-
-    // Wrap small cards in a column if they exist
-    if (smallCardsHtml) {
-      html += `<div class="work-right-col">${smallCardsHtml}</div>`;
-    }
 
     grid.innerHTML = html;
 
@@ -209,12 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── Mobile hamburger menu ───────────────────────────────── */
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
 
   const openMobileMenu = () => {
     hamburger?.classList.add('open');
     hamburger?.setAttribute('aria-expanded', 'true');
     mobileMenu?.classList.add('open');
     mobileMenu?.removeAttribute('aria-hidden');
+    menuOverlay?.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
 
@@ -223,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger?.setAttribute('aria-expanded', 'false');
     mobileMenu?.classList.remove('open');
     mobileMenu?.setAttribute('aria-hidden', 'true');
+    menuOverlay?.classList.remove('open');
     document.body.style.overflow = '';
   };
 
@@ -230,9 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
   });
 
+  menuOverlay?.addEventListener('click', closeMobileMenu);
+
   // Close menu when resizing to desktop
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 900) closeMobileMenu();
+    if (window.innerWidth > 768) closeMobileMenu();
   }, { passive: true });
 
   /* ─── Active nav link highlight on scroll ─────────────────── */
