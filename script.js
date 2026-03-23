@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ─── Marquee ─────────────────────────────────────────────── */
   const TECH_ITEMS = [
-    'React','Next.js','TypeScript','Node.js','Tailwind CSS',
-    'Supabase','Figma','Webflow','Three.js','PostgreSQL','GraphQL','AWS'
+    'React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS',
+    'Supabase', 'Figma', 'Webflow', 'Three.js', 'PostgreSQL', 'GraphQL', 'AWS'
   ];
 
   const track = document.getElementById('marquee-track');
@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ─── Custom Cursor ───────────────────────────────────────── */
-  const dot  = document.getElementById('cursor-dot');
+  const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
 
   // Only run cursor on devices that support hover
   const hasHover = window.matchMedia('(hover: hover)').matches;
   if (dot && ring && hasHover) {
-    let mx = window.innerWidth  / 2;
+    let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
     let rx = mx, ry = my;
     const LERP = 0.13;
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mx = e.clientX;
       my = e.clientY;
       dot.style.left = mx + 'px';
-      dot.style.top  = my + 'px';
+      dot.style.top = my + 'px';
     });
 
     // Cursor leaves / enters window
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rx += (mx - rx) * LERP;
       ry += (my - ry) * LERP;
       ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
+      ring.style.top = ry + 'px';
       requestAnimationFrame(animateCursor);
     };
     animateCursor();
@@ -62,18 +62,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     // Remove cursor elements from layout on touch devices
-    if (dot)  dot.style.display  = 'none';
+    if (dot) dot.style.display = 'none';
     if (ring) ring.style.display = 'none';
   }
+
+  /* ─── Projects (Case Studies) ─────────────────────────── */
+  const PROJECTS = [
+    {
+      title: "Private Safari's",
+      category: "Tour Agency / Safari",
+      desc: "Private and Custom Safaris Landing — built in 6 weeks.",
+      link: "https://safariwithus.vercel.app/",
+      size: "large"
+    },
+    {
+      title: "Wild Photography",
+      category: "Portfolio",
+      desc: "Personal portfolio for a wildlife photographer.",
+      link: "https://wildphoto.vercel.app/",
+      size: "small"
+    },
+    {
+      title: "Forma Store",
+      category: "E-Commerce",
+      desc: "Headless Shopify storefront for modern lifestyle.",
+      link: "https://github.com/zikka/void-studio", // Placeholder link
+      size: "small"
+    }
+  ];
+
+  const renderProjects = () => {
+    const grid = document.getElementById('work-grid');
+    if (!grid) return;
+
+    // Helper to get auto-screenshot from Microlink
+    const getScreenshotUrl = (url) => {
+      if (!url || url === '#') return '';
+      return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+    };
+
+    // We'll group them: one large, then a column of others if they are small
+    let html = '';
+    let smallCardsHtml = '';
+
+    PROJECTS.forEach((proj, idx) => {
+      const isLarge = proj.size === 'large';
+      const delayClass = `work-card--d${idx % 3}`;
+      const imgUrl = getScreenshotUrl(proj.link);
+
+      const cardHtml = `
+        <a class="work-card ${proj.size} reveal ${delayClass}" 
+           href="${proj.link}" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           aria-label="View ${proj.title} case study">
+          <div class="work-thumb">
+            ${imgUrl ? `<img src="${imgUrl}" alt="${proj.title}" class="work-img" loading="lazy">` : ''}
+            <div class="thumb-fade"></div>
+          </div>
+          <div class="work-info">
+            <p class="work-category">${proj.category}</p>
+            <h3 class="work-title">${proj.title}</h3>
+            <p class="work-desc">${proj.desc}</p>
+            <span class="work-link">View Project <span class="work-arrow">→</span></span>
+          </div>
+        </a>
+      `;
+
+      if (isLarge) {
+        html += cardHtml;
+      } else {
+        smallCardsHtml += cardHtml;
+      }
+    });
+
+    // Wrap small cards in a column if they exist
+    if (smallCardsHtml) {
+      html += `<div class="work-right-col">${smallCardsHtml}</div>`;
+    }
+
+    grid.innerHTML = html;
+
+    // Re-observe new elements for reveal animation
+    if ('IntersectionObserver' in window) {
+      const newReveals = grid.querySelectorAll('.reveal');
+      newReveals.forEach(el => revealObs.observe(el));
+    }
+  };
+
+  // Define revealObs in outer scope to reuse it
+  let revealObs;
 
   /* ─── Scroll Reveal ───────────────────────────────────────── */
   const reveals = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window) {
-    const revealObs = new IntersectionObserver(entries => {
+    revealObs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          // Don't unobserve if we want to re-trigger or handle dynamic content carefully
+          // but usually one-time reveal is better
           revealObs.unobserve(entry.target);
         }
       });
@@ -81,9 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reveals.forEach(el => revealObs.observe(el));
   } else {
-    // Fallback — show everything immediately
     reveals.forEach(el => el.classList.add('visible'));
   }
+
+  // Initialize projects
+  renderProjects();
 
   /* ─── Smooth Anchor Scroll ────────────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -95,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         // Account for fixed nav height
         const navH = document.querySelector('nav')?.offsetHeight || 68;
-        const top  = target.getBoundingClientRect().top + window.scrollY - navH;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH;
         window.scrollTo({ top, behavior: 'smooth' });
         // Close mobile menu if open
         closeMobileMenu();
@@ -116,10 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ─── Mobile hamburger menu ───────────────────────────────── */
-  const hamburger  = document.getElementById('hamburger');
+  const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
 
-  const openMobileMenu  = () => {
+  const openMobileMenu = () => {
     hamburger?.classList.add('open');
     hamburger?.setAttribute('aria-expanded', 'true');
     mobileMenu?.classList.add('open');
