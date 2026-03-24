@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
       size: "small"
     },
     {
-      title: "Wild Photography",
-      category: "Restaurant",
+      title: "Restaurant",
+      category: "Restaurant & Dining",
       desc: "Complete restaurant and booking.",
       link: "https://tamarindmsa.vercel.app/",
       size: "small"
