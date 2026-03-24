@@ -79,14 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Wild Photography",
       category: "Portfolio",
       desc: "Personal portfolio for a wildlife photographer.",
-      link: "https://wildphoto.vercel.app/",
+      link: "https://tamarindmsa.vercel.app/",
       size: "small"
     },
     {
       title: "Properties",
       category: "Real Estate",
       desc: "Real Estate & consultancy Landing.",
-      link: "https://urbanprime-six.vercel.app/",
+      link: "",
       size: "small"
     }
   ];
