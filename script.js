@@ -71,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       title: "Private Safari's",
       category: "Tour Agency / Safari",
-      desc: "Private and Custom Safaris Landing — built in 6 weeks.",
+      desc: "Private and Custom Safaris Landing.",
       link: "https://safariwithus.vercel.app/",
       size: "small"
     },
     {
       title: "Wild Photography",
-      category: "Portfolio",
-      desc: "Personal portfolio for a wildlife photographer.",
+      category: "Restaurant",
+      desc: "Complete restaurant and booking.",
       link: "https://tamarindmsa.vercel.app/",
       size: "small"
     },
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Properties",
       category: "Real Estate",
       desc: "Real Estate & consultancy Landing.",
-      link: "",
+      link: "https://urbanprime-six.vercel.app/",
       size: "small"
     }
   ];
